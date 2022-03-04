@@ -15,10 +15,10 @@ docker network inspect redis
 ~~~shell
 #使用脚本创建6个redis配置
 
-for port in$(seq 1 6); \
+for port in $(seq 1 6); \
 do \
-mkdir -p /mydata/redis/node-${port}/conf
-touch /mydata/redis/node-${port}/conf/redis.conf
+mkdir -p /Users/nlsg/sinan/workCode/docker/redis/node-${port}/conf
+touch /Users/nlsg/sinan/workCode/docker/redis/node-${port}/conf/redis.conf
 port 6379
 bind 0.0.0.0
 cluster-enabled yes
@@ -44,5 +44,25 @@ done
 
 ## 3、创建redis集群
 
-#### 	使用cluster
+#### 	使用cluster 集群配置
 
+```shell
+redis-cli --cluster create 172.38.0.11:6379 172.38.0.12:6379 172.38.0.13:6379 172.38.0.14:6379 172.38.0.15:6379 172.38.0.16:6379 --cluster-replicas 1
+```
+
+
+
+###  测试
+
+```shell
+redis-cli -c #集群启动
+cluster info #查看状态
+set a 11  #查看存入到那个ip中  停掉服务后 在get
+get a
+```
+
+
+
+
+
+ 
